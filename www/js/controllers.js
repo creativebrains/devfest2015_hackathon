@@ -2,6 +2,27 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
+
+  // var CheckIn = Parse.Object.extend("CheckIn");
+  // var gameScore = new CheckIn();
+  //
+  // gameScore.set('user', Parse.User.current());
+  // gameScore.set("from", moment('2015-11-20 12:00:00').toDate());
+  // gameScore.set("to", moment('2015-11-20 13:30:00').toDate());
+  //
+  //
+  // gameScore.save(null, {
+  //   success: function(gameScore) {
+  //     // Execute any logic that should take place after the object is saved.
+  //     alert('New object created with objectId: ' + gameScore.id);
+  //   },
+  //   error: function(gameScore, error) {
+  //     // Execute any logic that should take place if the save fails.
+  //     // error is a Parse.Error with an error code and message.
+  //     alert('Failed to create new object, with error code: ' + error.message);
+  //   }
+  // });
+
   $scope.loginData = {};
 
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -61,55 +82,96 @@ angular.module('starter.controllers', [])
   }, 1000);
 })
 
-.controller('WeekController', function($scope) {
+.controller('WeekController', function($scope, $ionicLoading) {
 
-  $scope.weekDays = [
-    {
-      date: moment('2015-11-16').format('dddd - DD.MM.YYYY'),
-      hours: 10.5
-    },
-    {
-      date:  moment('2015-11-16').add(1, 'day').format('dddd - DD.MM.YYYY'),
-      hours: 0.0
-    },
-    {
-      date:  moment('2015-11-16').add(2, 'day').format('dddd - DD.MM.YYYY'),
-      hours: 8.0
-    },
-    {
-      date:  moment('2015-11-16').add(3, 'day').format('dddd - DD.MM.YYYY'),
-      hours: 10.5
-    },
-    {
-      date:  moment('2015-11-16').add(4, 'day').format('dddd - DD.MM.YYYY'),
-      hours: 3
+  $ionicLoading.show({
+      template: 'Loading...'
+    });
+
+  $scope.weekDays = {};
+
+  function load() {
+    $scope.weekDays = {};
+
+    var date = moment('2015-11-16');
+    for(var i = 0; i < 5; i++) {
+      $scope.weekDays[date.format('YYYY-MM-DD')] = {
+        date: date.format('dddd - DD.MM.YYYY'),
+        realDate: date.format('YYYY-MM-DD'),
+        minutes: 0
+      };
+      date.add(1, 'day');
     }
+
+    var Checkin = Parse.Object.extend('CheckIn');
+    var query = new Parse.Query(Checkin);
+    query.equalTo('user', Parse.User.current());
+    query.find({
+      success: function(results) {
+        //  console.log('results',JSON.stringify(results));
+        for(var i = 0; i < results.length; i++) {
+          var from = moment(results[i].get('from'));
+          var to = moment(results[i].get('to'));
+          console.log(from.format('YYYY-MM-DD'), to.diff(from, 'minutes'));
+
+          $scope.weekDays[from.format('YYYY-MM-DD')].minutes += Math.abs(to.diff(from, 'minutes'));
+        }
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.refreshComplete');
+      },
+      error: function(error) {
+        alert('Error: ' + error.code + ' ' + error.message);
+      }
+    });
+  }
+  load();
+
+  $scope.load = load;
+}).controller('DayController', function($scope, $stateParams, $ionicLoading) {
+  console.log('day', $stateParams.date)
+
+
+  $ionicLoading.show({
+    template: 'Loading...'
+  });
+
+
+  $scope.day = {
+    date: moment($stateParams.date).format('dddd - DD.MM.YYYY'),
+    minutes: 0
+  };
+
+  $scope.checkins = [
+
   ];
 
 
   var Checkin = Parse.Object.extend('CheckIn');
   var query = new Parse.Query(Checkin);
+  query.greaterThan('from', moment($stateParams.date).startOf('day').toDate());
+  query.lessThan('to', moment($stateParams.date).endOf('day').toDate());
   query.equalTo('user', Parse.User.current());
   query.find({
     success: function(results) {
-      console.log('results',JSON.stringify(results));
+      //console.log('results',JSON.stringify(results));
+      for(var i = 0; i < results.length; i++) {
+        var from = moment(results[i].get('from'));
+        var to = moment(results[i].get('to'));
+        console.log(from.format('YYYY-MM-DD'), to.diff(from, 'minutes'));
+
+        $scope.day.minutes += Math.abs(to.diff(from, 'minutes'));
+
+        $scope.checkins.push({
+          start: from.format('HH:mm'),
+          to: from.format('HH:mm')
+        })
+      }
+      $ionicLoading.hide();
     },
     error: function(error) {
       alert('Error: ' + error.code + ' ' + error.message);
     }
   });
-}).controller('DayController', function($scope) {
-  $scope.day = {
-    date: moment('2015-11-16').format('dddd - DD.MM.YYYY'),
-    hours: 8.5
-  };
-
-  $scope.checkins = [
-    {
-      start: moment('2015-11-16 09:00:00').format('HH:mm'),
-      end: moment('2015-11-16 17:30:00').format('HH:mm'),
-    }
-  ];
 
 
 })

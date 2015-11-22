@@ -47,7 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     })
 
   .state('app.dayDetail', {
-      url: '/dayDetail',
+      url: '/dayDetail/:date',
       views: {
         'menuContent': {
           templateUrl: 'templates/dayDetail.html',

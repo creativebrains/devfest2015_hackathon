@@ -5,8 +5,8 @@
         <div class="item">
           <div class="item item-icon-left">
             <span class="dayName">{{ day.date }}</span>
-            <span class="badge" ng-class="{'badge-red' : data.hours > 8.5, 'badge-green': data.hours <= 8.5}">
-              <span>{{ day.hours }} h</span>
+            <span class="badge" ng-class="{'badge-red' : day.minutes > 8.5*60, 'badge-green': day.minutes <= 8.5*60}">
+              <span>{{ (day.minutes/60) | number:2 }} h</span>
             </span>
           </div>
         </div>
