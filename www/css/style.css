@@ -5,7 +5,7 @@
   background: #387EF5;
 }
 .bar.bar-stable.sidebar {
-  background: #FFF;
+  background: #F0F0F0;
 }
 .bar.bar-stable.sidebar .title {
   color: #000;
@@ -24,8 +24,11 @@
 /* Checkin */
 
 /* Week Overview */
+.item-icon-left {
+  padding-left: 16px;
+}
 .badge {
-    width: 80px;
+    width: 60px;
     text-align: center;
 }
 span.badge span {
@@ -42,3 +45,17 @@ span.badge span {
 }
 
 /* Day Detail */
+.dayDetail span.dayName {
+  font-weight: bold;
+}
+
+.dayDetail p.checkin-label,
+.dayDetail p.checkout-label {
+  text-align: center;
+  font-weight: bold;
+}
+
+.dayDetail ul li {
+  text-align: center;
+  margin-bottom: 10px;
+}
