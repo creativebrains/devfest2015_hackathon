@@ -5,6 +5,13 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="data:*" />
+    <allow-intent href="*" />
+    <access origin="*" />
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -16,11 +23,16 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/parse-1.6.7.js"></script>
 
+    <script>
+      Parse.initialize('b7ku3SZ9aHHAYsp9ivGGzDUepIFjbU363U2dQUB6', 'wkw3L8xRn8a4OUCOyQHb39czBkijpt7MDBgaF3TJ');
+    </script>
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/beaconService.js"></script>
     <script src="js/controllers.js"></script>
   </head>
 
