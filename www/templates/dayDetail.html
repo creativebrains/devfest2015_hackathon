@@ -14,9 +14,16 @@
           <div class="row" ng-repeat="checkin in checkins">
             <div class="col-50">
               <p class="checkin-label"><i class="icon ion-clock"></i> Check-In:</p>
-              <ul>
-                <li>{{ checkin.start }}</li>
-                <li>{{ checkin.end }}</li>
+              <div class="row">
+                <span class="col-30">
+                  {{ checkin.from }}
+                </span>
+                <span class="col-30">
+                  {{ checkin.to }}
+                </span>
+                <span class="col-30">
+                  {{ (checkin.minutes/60) | number:2 }} h
+                </span>
               </ul>
             </div>
           </div>

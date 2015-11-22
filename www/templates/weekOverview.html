@@ -3,7 +3,7 @@
     <div class="weekOverview">
       <ion-refresher on-refresh="load()"></ion-refresher>
       <div class="list card">
-        <a class="item item-icon-left" href="#/app/dayDetail/{{ data.realDate }}" ng-repeat="(day, data) in weekDays">
+        <a class="item item-icon-left active" href="#/app/dayDetail/{{ data.realDate }}" ng-repeat="(day, data) in weekDays">
           {{ data.date }}
           <span class="badge" ng-class="{'badge-red' : data.minutes > 8.5*60, 'badge-green': data.minutes <= 8.5*60}">
             <span>{{ (data.minutes/60) | number:2 }} h</span>

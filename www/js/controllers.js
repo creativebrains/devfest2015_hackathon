@@ -1,14 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
 
 
   // var CheckIn = Parse.Object.extend("CheckIn");
   // var gameScore = new CheckIn();
   //
   // gameScore.set('user', Parse.User.current());
-  // gameScore.set("from", moment('2015-11-20 12:00:00').toDate());
-  // gameScore.set("to", moment('2015-11-20 13:30:00').toDate());
+  // gameScore.set("from", moment('2015-11-22 13:00:00').toDate());
+  // gameScore.set("to", moment('2015-11-22 15:40:00').toDate());
   //
   //
   // gameScore.save(null, {
@@ -61,6 +61,7 @@ angular.module('starter.controllers', [])
     Parse.User.logIn($scope.loginData.username, $scope.loginData.password, {
       success: function(user) {
         $scope.closeLogin();
+        $state.go('app.weekOverview', null, {reload: true});
       },
       error: function(user, error) {
         alert('invalid login');
@@ -94,7 +95,7 @@ angular.module('starter.controllers', [])
     $scope.weekDays = {};
 
     var date = moment('2015-11-16');
-    for(var i = 0; i < 5; i++) {
+    for(var i = 0; i < 7; i++) {
       $scope.weekDays[date.format('YYYY-MM-DD')] = {
         date: date.format('dddd - DD.MM.YYYY'),
         realDate: date.format('YYYY-MM-DD'),
@@ -162,8 +163,9 @@ angular.module('starter.controllers', [])
         $scope.day.minutes += Math.abs(to.diff(from, 'minutes'));
 
         $scope.checkins.push({
-          start: from.format('HH:mm'),
-          to: from.format('HH:mm')
+          from: from.format('HH:mm'),
+          to: from.format('HH:mm'),
+          minutes: Math.abs(to.diff(from, 'minutes'))
         })
       }
       $ionicLoading.hide();
