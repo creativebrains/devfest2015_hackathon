@@ -1,1 +1,44 @@
 /* Empty. Add your own CSS if you like */
+
+/* Header Bar */
+.bar.bar-stable {
+  background: #387EF5;
+}
+.bar.bar-stable.sidebar {
+  background: #FFF;
+}
+.bar.bar-stable.sidebar .title {
+  color: #000;
+}
+.bar.bar-stable .title {
+  color: #FFF;
+}
+
+.bar-stable .button.button-clear {
+  color: #FFF;
+}
+
+/* Login */
+
+
+/* Checkin */
+
+/* Week Overview */
+.badge {
+    width: 80px;
+    text-align: center;
+}
+span.badge span {
+  position: relative;
+  margin: 0 auto;
+}
+.badge.badge-red {
+  background-color: red;
+  color: #FFF;
+}
+.badge.badge-green {
+  background-color: #009900;
+  color: #FFF;
+}
+
+/* Day Detail */

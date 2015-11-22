@@ -55,4 +55,4 @@ angular.module('starter.controllers', [])
 
 .controller('CheckinController', function($scope) {
   $scope.user = {};
-});
+})

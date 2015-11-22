@@ -27,12 +27,30 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
+
+  .state('app.weekOverview', {
+      url: '/weekOverview',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/weekOverview.html'
+        }
+      }
+    })
+
+  .state('app.dayDetail', {
+      url: '/dayDetail',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/dayDetail.html'
+        }
+      }
+    })
 
   .state('app.checkin', {
       url: '/checkin',
