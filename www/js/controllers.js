@@ -56,6 +56,60 @@ angular.module('starter.controllers', [])
     // $scope.seesBeacon = BeaconService.isInRange('F0:66:6A:5E:49:6B'); // clemens
     // $scope.seesBeacon = BeaconService.isInRange('CA:FB:74:4E:C9:24'); // markus
     $scope.seesBeacon = BeaconService.isInRange('D0:49:15:04:0F:14'); // dominik
+    $scope.beacon = BeaconService.get('D0:49:15:04:0F:14');
 
   }, 1000);
-});
+})
+
+.controller('WeekController', function($scope) {
+
+  $scope.weekDays = [
+    {
+      date: moment('2015-11-16').format('dddd - DD.MM.YYYY'),
+      hours: 10.5
+    },
+    {
+      date:  moment('2015-11-16').add(1, 'day').format('dddd - DD.MM.YYYY'),
+      hours: 0.0
+    },
+    {
+      date:  moment('2015-11-16').add(2, 'day').format('dddd - DD.MM.YYYY'),
+      hours: 8.0
+    },
+    {
+      date:  moment('2015-11-16').add(3, 'day').format('dddd - DD.MM.YYYY'),
+      hours: 10.5
+    },
+    {
+      date:  moment('2015-11-16').add(4, 'day').format('dddd - DD.MM.YYYY'),
+      hours: 3
+    }
+  ];
+
+
+  var Checkin = Parse.Object.extend('CheckIn');
+  var query = new Parse.Query(Checkin);
+  query.equalTo('user', Parse.User.current());
+  query.find({
+    success: function(results) {
+      console.log('results',JSON.stringify(results));
+    },
+    error: function(error) {
+      alert('Error: ' + error.code + ' ' + error.message);
+    }
+  });
+}).controller('DayController', function($scope) {
+  $scope.day = {
+    date: moment('2015-11-16').format('dddd - DD.MM.YYYY'),
+    hours: 8.5
+  };
+
+  $scope.checkins = [
+    {
+      start: moment('2015-11-16 09:00:00').format('HH:mm'),
+      end: moment('2015-11-16 17:30:00').format('HH:mm'),
+    }
+  ];
+
+
+})

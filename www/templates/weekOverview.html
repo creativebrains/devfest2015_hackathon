@@ -2,34 +2,11 @@
   <ion-content>
     <div class="weekOverview">
       <div class="list card">
-        <a class="item item-icon-left" href="#/app/dayDetail">
+        <a class="item item-icon-left" href="#/app/dayDetail" ng-repeat="(day, data) in weekDays">
           Montag - 23.11.2015
-          <span class="badge badge-red">
-            <span>10,5 h</span>
-          </span>
-        </a>
-        <a class="item item-icon-left" href="#/app/dayDetail">
-          Dienstag - 24.11.2015
-          <span class="badge badge-green">
-            <span>8 h</span>
-          </span>
-        </a>
-        <a class="item item-icon-left" href="#/app/dayDetail">
-          Mittwoch - 25.11.2015
-          <span class="badge badge-green">
-            <span>7,7 h</span>
-          </span>
-        </a>
-        <a class="item item-icon-left" href="#/app/dayDetail">
-          Donnerstag - 26.11.2015
-          <span class="badge badge-green">
-            <span>8,5 h</span>
-          </span>
-        </a>
-        <a class="item item-icon-left" href="#/app/dayDetail">
-          Freitag - 27.11.2015
-          <span class="badge badge-green">
-            <span>6 h</span>
+          {{ data.date }}
+          <span class="badge" ng-class="{'badge-red' : data.hours > 8.5, 'badge-green': data.hours <= 8.5}">
+            <span>{{ data.hours }} h</span>
           </span>
         </a>
       </div>

@@ -7,6 +7,7 @@
 angular.module('starter', ['ionic', 'starter.controllers'])
 
 .run(function($ionicPlatform, BeaconService) {
+  moment.locale('en');
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -39,7 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/weekOverview',
       views: {
         'menuContent': {
-          templateUrl: 'templates/weekOverview.html'
+          templateUrl: 'templates/weekOverview.html',
+          controller: 'WeekController'
         }
       }
     })
@@ -48,7 +50,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/dayDetail',
       views: {
         'menuContent': {
-          templateUrl: 'templates/dayDetail.html'
+          templateUrl: 'templates/dayDetail.html',
+          controller: 'DayController'
         }
       }
     })
@@ -63,5 +66,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/checkin');
+  $urlRouterProvider.otherwise('/app/weekOverview');
 });

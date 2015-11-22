@@ -4,26 +4,19 @@
       <div class="list card">
         <div class="item">
           <div class="item item-icon-left">
-            <span class="dayName">Montag - 23.11.2015</span>
-            <span class="badge badge-red">
-              <span>10,5 h</span>
+            <span class="dayName">{{ day.date }}</span>
+            <span class="badge" ng-class="{'badge-red' : data.hours > 8.5, 'badge-green': data.hours <= 8.5}">
+              <span>{{ day.hours }} h</span>
             </span>
           </div>
         </div>
         <div class="item item-body">
-          <div class="row">
+          <div class="row" ng-repeat="checkin in checkins">
             <div class="col-50">
               <p class="checkin-label"><i class="icon ion-clock"></i> Check-In:</p>
               <ul>
-                <li>08:00</li>
-                <li>12:30</li>
-              </ul>
-            </div>
-            <div class="col-50">
-              <p class="checkout-label"><i class="icon ion-clock"></i> Check-Out:</p>
-              <ul>
-                <li>12:03</li>
-                <li>17:35</li>
+                <li>{{ checkin.start }}</li>
+                <li>{{ checkin.end }}</li>
               </ul>
             </div>
           </div>
