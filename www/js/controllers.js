@@ -17,25 +17,23 @@ angular.module('starter.controllers', [])
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
+
+
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+    } else {
+      $scope.modal.show();
+    }
+
   });
-
-  var currentUser = Parse.User.current();
-  if (currentUser) {
-    console.log('logged in');
-  } else {
-    console.log('not logged in');
-    $scope.modal.show();
-  }
-
-
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
 
   // Open the login modal
   $scope.login = function() {
+    $scope.modal.show();
+  };
+
+  $scope.logout = function() {
+    Parse.User.logOut();
     $scope.modal.show();
   };
 
@@ -45,18 +43,13 @@ angular.module('starter.controllers', [])
 
     Parse.User.logIn($scope.loginData.username, $scope.loginData.password, {
       success: function(user) {
-        alert('yay');
+        $scope.closeLogin();
       },
       error: function(user, error) {
-        alert('nope');
+        alert('invalid login');
       }
     });
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
   };
 })
 
