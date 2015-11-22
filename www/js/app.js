@@ -51,6 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       views: {
         'menuContent': {
           templateUrl: 'templates/dayDetail.html',
+          controller: 'DayController'
         }
       }
     })

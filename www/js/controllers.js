@@ -98,4 +98,18 @@ angular.module('starter.controllers', [])
       alert('Error: ' + error.code + ' ' + error.message);
     }
   });
+}).controller('DayController', function($scope) {
+  $scope.day = {
+    date: moment('2015-11-16').format('dddd - DD.MM.YYYY'),
+    hours: 8.5
+  };
+
+  $scope.checkins = [
+    {
+      start: moment('2015-11-16 09:00:00').format('HH:mm'),
+      end: moment('2015-11-16 17:30:00').format('HH:mm'),
+    }
+  ];
+
+
 })
