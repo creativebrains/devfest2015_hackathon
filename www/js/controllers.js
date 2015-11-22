@@ -164,7 +164,7 @@ angular.module('starter.controllers', [])
 
         $scope.checkins.push({
           from: from.format('HH:mm'),
-          to: from.format('HH:mm'),
+          to: to.format('HH:mm'),
           minutes: Math.abs(to.diff(from, 'minutes'))
         })
       }
