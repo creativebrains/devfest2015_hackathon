@@ -6,10 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, BeaconService) {
   $ionicPlatform.ready(function() {
-    Parse.initialize('b7ku3SZ9aHHAYsp9ivGGzDUepIFjbU363U2dQUB6', 'wkw3L8xRn8a4OUCOyQHb39czBkijpt7MDBgaF3TJ');
-
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -21,6 +19,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    BeaconService.init();
+
   });
 })
 
@@ -56,7 +57,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       url: '/checkin',
       views: {
         'menuContent': {
-          templateUrl: 'templates/checkin.html'
+          templateUrl: 'templates/checkin.html',
+          controller: 'CheckinController'
         }
       }
     });

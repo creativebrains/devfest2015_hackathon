@@ -2,17 +2,8 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  // Form data for the login modal
   $scope.loginData = {};
 
-  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
@@ -21,11 +12,16 @@ angular.module('starter.controllers', [])
 
     var currentUser = Parse.User.current();
     if (currentUser) {
+      $scope.user = currentUser;
     } else {
       $scope.modal.show();
     }
 
   });
+
+  $scope.closeLogin = function() {
+    $scope.modal.hide();
+  }
 
   // Open the login modal
   $scope.login = function() {
@@ -53,6 +49,13 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CheckinController', function($scope) {
-  $scope.user = {};
-})
+.controller('CheckinController', function($scope, BeaconService, $interval) {
+  $scope.seesBeacon = false;
+
+  $interval(function() {
+    // $scope.seesBeacon = BeaconService.isInRange('F0:66:6A:5E:49:6B'); // clemens
+    // $scope.seesBeacon = BeaconService.isInRange('CA:FB:74:4E:C9:24'); // markus
+    $scope.seesBeacon = BeaconService.isInRange('D0:49:15:04:0F:14'); // dominik
+
+  }, 1000);
+});
